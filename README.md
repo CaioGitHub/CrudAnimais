@@ -56,13 +56,14 @@ http://localhost:8080/index.html
 
 ## Endpoints da API
 
-| Método | Rota            | Descrição                    |
-| ------ | --------------- | ---------------------------- |
-| GET    | `/animals`      | Lista todos os animais       |
-| GET    | `/animals/{id}` | Busca um animal pelo ID      |
-| POST   | `/animals`      | Cria um novo animal          |
-| PUT    | `/animals/{id}` | Atualiza um animal existente |
-| DELETE | `/animals/{id}` | Remove um animal pelo ID     |
+| Método | Rota                   | Descrição                    |
+| ------ | ---------------------- | ---------------------------- |
+| GET    | `/animals`             | Lista todos os animais       |
+| GET    | `/animals/{id}`        | Busca um animal pelo ID      |
+| GET    | `/animals/nome/{nome}` | Busca animais pelo nome      |
+| POST   | `/animals`             | Cria um novo animal          |
+| PUT    | `/animals/{id}`        | Atualiza um animal existente |
+| DELETE | `/animals/{id}`        | Remove um animal pelo ID     |
 
 ## Observações
 
