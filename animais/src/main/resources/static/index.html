@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>API de Animais</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<h1>API de Animais</h1>
+<div class="container">
+    <div class="card">
+        <h3>Criar Animal</h3>
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="especie" placeholder="Espécie">
+        <input type="number" id="idade" placeholder="Idade">
+        <button onclick="criarAnimal()">Criar</button>
+    </div>
+    <div class="card">
+        <h3>Buscar por ID</h3>
+        <input type="number" id="idBuscar" placeholder="ID">
+        <button onclick="buscarPorId()">Buscar</button>
+    </div>
+    <div class="card">
+        <h3>Buscar por Espécie</h3>
+        <input type="text" id="especieBuscar" placeholder="Espécie">
+        <button onclick="buscarPorEspecie()">Buscar</button>
+    </div>
+    <div class="card">
+        <h3>Buscar por Nome</h3>
+        <input type="text" id="nomeBuscar" placeholder="Nome">
+        <button onclick="buscarPorNome()">Buscar</button>
+    </div>
+    <div class="card">
+        <h3>Buscar por Idade &gt;</h3>
+        <input type="number" id="idadeBuscar" placeholder="Idade">
+        <button onclick="buscarPorIdade()">Buscar</button>
+    </div>
+    <div class="card">
+        <h3>Deletar Animal</h3>
+        <input type="number" id="idDeletar" placeholder="ID">
+        <button onclick="deletarAnimal()">Deletar</button>
+    </div>
+    <div class="card">
+        <h3>Atualizar Animal</h3>
+        <input type="number" id="idAtualizar" placeholder="ID">
+        <input type="text" id="nomeAtualizar" placeholder="Nome">
+        <input type="text" id="especieAtualizar" placeholder="Espécie">
+        <input type="number" id="idadeAtualizar" placeholder="Idade">
+        <button onclick="atualizarAnimal()">Atualizar</button>
+    </div>
+    <div class="card">
+        <h3>Listar Todos</h3>
+        <button onclick="listarTodos()">Listar</button>
+    </div>
+    <div class="card" id="resultado">
+        <h3>Resultado</h3>
+        <pre id="output"></pre>
+    </div>
+</div>
+<script src="./js/script.js"></script>
+</body>
+</html>
