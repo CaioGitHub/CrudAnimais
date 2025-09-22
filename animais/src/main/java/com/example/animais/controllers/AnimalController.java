@@ -1,11 +1,16 @@
 package com.example.animais.controllers;
 
+import com.example.animais.dtos.AnimalDTO;
 import com.example.animais.models.Animal;
 import com.example.animais.services.AnimalService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/animais")
@@ -29,19 +34,29 @@ public class AnimalController {
     }
 
     @PostMapping
-    public Animal create(@RequestBody Animal animal) {
-        return animalService.createAnimal(animal);
+    public ResponseEntity<?> create(@Valid @RequestBody AnimalDTO animalDTO, BindingResult result) {
+        if(result.hasErrors()) {
+            Map<String, String> erros = new HashMap<>();
+            result.getFieldErrors().forEach(erro ->
+                    erros.put(erro.getField(), erro.getDefaultMessage()
+                    ));
+            return ResponseEntity.badRequest().body(erros);
+        }
+        Animal animal = animalService.createAnimal(animalDTO);
+        return ResponseEntity.ok(animal);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Animal> update(@PathVariable Long id, @RequestBody Animal animal) {
-        return animalService.getAnimalById(id)
-                .map(existing -> {
-                    existing.setNome(animal.getNome());
-                    existing.setEspecie(animal.getEspecie());
-                    existing.setIdade(animal.getIdade());
-                    return ResponseEntity.ok(animalService.createAnimal(existing));
-                })
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody AnimalDTO animalDTO, BindingResult result) {
+        if(result.hasErrors()) {
+            Map<String, String> erros = new HashMap<>();
+            result.getFieldErrors().forEach(erro ->
+                    erros.put(erro.getField(), erro.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(erros);
+        }
+        return animalService.updateAnimal(id, animalDTO)
+                .map(animal -> ResponseEntity.ok(animal))
                 .orElse(ResponseEntity.notFound().build());
     }
 

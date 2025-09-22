@@ -1,5 +1,6 @@
 package com.example.animais.services;
 
+import com.example.animais.dtos.AnimalDTO;
 import com.example.animais.models.Animal;
 import com.example.animais.repositories.AnimalRepository;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,22 @@ public class AnimalService {
         return animalRepository.findById(id);
     }
 
-    public Animal createAnimal(Animal animal) {
+    public Animal createAnimal(AnimalDTO animalDTO) {
+        Animal animal = Animal.builder()
+                .nome(animalDTO.nome())
+                .especie(animalDTO.especie())
+                .idade(animalDTO.idade())
+                .build();
         return animalRepository.save(animal);
+    }
+
+    public Optional<Animal> updateAnimal(Long id, AnimalDTO animalDTO) {
+        return animalRepository.findById(id).map(existing -> {
+            existing.setNome(animalDTO.nome());
+            existing.setEspecie(animalDTO.especie());
+            existing.setIdade(animalDTO.idade());
+            return animalRepository.save(existing);
+        });
     }
 
     public void deleteAnimal(Long id) {
