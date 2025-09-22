@@ -10,6 +10,7 @@ Este é um projeto de **CRUD de Animais** desenvolvido em **Java com Spring Boot
   - Java 17+
   - Spring Boot
   - Spring Data JPA
+  - Spring-boot-starter-validation
   - H2 Database (ou outro banco de sua escolha)
 - **Frontend**:
   - HTML
@@ -30,6 +31,7 @@ animais/
 │ │ ├── java/com/exemplo/animais/
 │ │ │ ├── config/       # Configurações da aplicação (ex: CORS, segurança, etc.)
 │ │ │ ├── controller/   # Controllers da API (recebem requisições HTTP)
+│ │ │ ├── dtos/         # Data Transfer Objects (entrada/saída de dados na API)
 │ │ │ ├── model/        # Classes de entidade (representam tabelas do banco)
 │ │ │ ├── repository/   # Interfaces JPA Repository (acesso a dados)
 │ │ │ └── service/      # Serviços (lógica de negócio)
