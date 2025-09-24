@@ -1,6 +1,7 @@
 package com.example.animais.controllers;
 
 import com.example.animais.dtos.AnimalDTO;
+import com.example.animais.dtos.AnimalResponseDTO;
 import com.example.animais.models.Animal;
 import com.example.animais.services.AnimalService;
 import jakarta.validation.Valid;
@@ -22,12 +23,12 @@ public class AnimalController {
     }
 
     @GetMapping
-    public List<Animal> getAll() {
+    public List<AnimalResponseDTO> getAll() {
         return animalService.getAllAnimals();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Animal> getById(@PathVariable Long id) {
+    public ResponseEntity<AnimalResponseDTO> getById(@PathVariable Long id) {
         return animalService.getAnimalById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -38,11 +39,10 @@ public class AnimalController {
         if(result.hasErrors()) {
             Map<String, String> erros = new HashMap<>();
             result.getFieldErrors().forEach(erro ->
-                    erros.put(erro.getField(), erro.getDefaultMessage()
-                    ));
+                    erros.put(erro.getField(), erro.getDefaultMessage()));
             return ResponseEntity.badRequest().body(erros);
         }
-        Animal animal = animalService.createAnimal(animalDTO);
+        AnimalResponseDTO animal = animalService.createAnimal(animalDTO);
         return ResponseEntity.ok(animal);
     }
 
@@ -51,12 +51,11 @@ public class AnimalController {
         if(result.hasErrors()) {
             Map<String, String> erros = new HashMap<>();
             result.getFieldErrors().forEach(erro ->
-                    erros.put(erro.getField(), erro.getDefaultMessage())
-            );
+                    erros.put(erro.getField(), erro.getDefaultMessage()));
             return ResponseEntity.badRequest().body(erros);
         }
         return animalService.updateAnimal(id, animalDTO)
-                .map(animal -> ResponseEntity.ok(animal))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -71,19 +70,17 @@ public class AnimalController {
     }
 
     @GetMapping("/especie/{especie}")
-    public List<Animal> getByEspecie(@PathVariable String especie) {
+    public List<AnimalResponseDTO> getByEspecie(@PathVariable String especie) {
         return animalService.getAnimalsByEspecie(especie);
     }
 
     @GetMapping("/idadeMaiorQue/{idade}")
-    public List<Animal> getByIdadeMaiorQue(@PathVariable int idade) {
+    public List<AnimalResponseDTO> getByIdadeMaiorQue(@PathVariable int idade) {
         return animalService.getAnimalsOlderThan(idade);
     }
 
     @GetMapping("/nome/{nome}")
-    public List<Animal> getByNome(@PathVariable String nome) {
-        return animalService.getAllAnimals().stream()
-                .filter(animal -> animal.getNome().equalsIgnoreCase(nome))
-                .toList();
+    public List<AnimalResponseDTO> getByNome(@PathVariable String nome) {
+        return animalService.getAnimalsByNome(nome);
     }
 }

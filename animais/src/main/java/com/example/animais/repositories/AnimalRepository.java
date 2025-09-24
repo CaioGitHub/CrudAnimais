@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
     List<Animal> findByEspecieIgnoreCase(String especie);
+    List<Animal> findByNomeContainingIgnoreCase(String nome);
     List<Animal> findByIdadeGreaterThan(int idade);
 }
